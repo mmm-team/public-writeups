@@ -1,6 +1,7 @@
 # The Blade - Reversing
 
-```Full Chain - The Blade [234pts]
+```
+Full Chain - The Blade [234pts]
 
 A Rust tool for executing shellcode in a seccomp environment. Your goal is to pass the hidden flag checker concealed in the binary.
 
@@ -9,7 +10,8 @@ https://storage.googleapis.com/hitconctf2023/chal-the-blade/blade-4c2ff1b6090262
 (Hey, this is my first Rust project. Feel free to give me any advice and criticism 😃)
 
 Author: wxrdnx
-40 Teams solved.```
+40 Teams solved.
+```
 
 ## Initial Observations
 
