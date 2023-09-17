@@ -102,12 +102,12 @@ populating it with data from host memory.
 
 By using the device's memo save and restore functionality, we can read
 and write arbitrary data to/from `addr_ram`. This gives us arbitrary
-read/write of the 2G of memory starting at `reg_mmio & ~0xffffffff`.
+read/write of the 4G of memory starting at `reg_mmio & ~0xffffffff`.
 
 ## Exploit
 
 Luckily, just about all of the process's memory aside from its heap and
-stack is located in the 2G region we can read/write. The exploit leaks a
+stack is located in the 4G region we can read/write. The exploit leaks a
 libc address from a nearby page, then leaks out a glibc-mangled function
 pointer and derives the pointer guard used for function pointer
 mangling. It then installs an exit handler (with the necessary function
