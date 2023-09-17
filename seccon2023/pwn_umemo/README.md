@@ -131,14 +131,14 @@ MEMOPAGE_SIZE_MAX`).
 
 ## Exploit
 
-The exploit causes the program writes of "free pages" at an offset of
+The exploit causes the program to write "free pages" at an offset of
 `MEMOPAGE_SIZE_MAX - 1`, then reads and writes more than one byte from
 this offset. The first byte will be read/written to offset
 `MEMOPAGE_SIZE_MAX - 1`, but the bytes after will be written to the
-beginning of the buffer. Recall that the userspace program uses the
-first 0x100 bytes of this buffer to store pointers to fixed memos. By
-overwriting these pointers, we can cause reads/writes of fixed memos to
-read/write from arbitrary locations.
+beginning of the buffer due to wraparound. Recall that the userspace
+program uses the first 0x100 bytes of this buffer to store pointers to
+fixed memos. By overwriting these pointers, we can cause reads/writes of
+fixed memos to read/write from arbitrary locations.
 
 Normally, it would be trivial to solve this problem given arbitrary
 read/write. However, the setup of this challenge involves interacting
