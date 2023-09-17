@@ -93,7 +93,7 @@ This exploit is pretty unreliable and low-quality. Among other things:
 This "worked" as a quick CTF solution, but we suffered greatly from this
 unreliability when performing the final full chain attack.
 
-After the the CTF, I studied the SLUB allocator in more details and
+After the the CTF, I studied the SLUB allocator in more detail and
 produced a more reliable exploit. This version of the exploit uses the
 same general strategy, but migrates pages across slab caches more
 precisely.
