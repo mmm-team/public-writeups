@@ -19,8 +19,7 @@ void main() {
 ## Exploit
 
 The crux of the challenge is to control the first argument to a call to
-`system`. When we return from main, `rdi` contains the address of the
-buffer that we just called `gets` on.
+`system`.
 
 When `main()` returns, `rax` contains address of the buffer. There is a
 tempting `mov rdi, rax; call system` gadget, but that doesn't work

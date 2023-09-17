@@ -117,5 +117,5 @@ Exploit code: [kernel_exploit.cc](kernel_exploit.cc)
 
 The [challenge author's
 writeup](https://github.com/shift-crops/CTFProblemArchive/blob/master/2023/SECCON%20Online/ukqmemo/solver/exploit_lkm.c)
-contains a more elengat trick that leaks the kernel text base from a
+contains a more elengant trick that leaks the kernel text base from a
 fixed IDT address without the need for any searching of memory.
