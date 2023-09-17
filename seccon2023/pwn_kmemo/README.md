@@ -12,13 +12,13 @@ interacting with this same kernel module.
 
 ## Bug
 
-Recall from the umemo writeup the mmapping this kernel module's
+Recall from the umemo writeup that mmapping this kernel module's
 character device exposes access to a virtual buffer whose pages are
 allocated lazily.
 
 The lazy mapping is accomplished as follows by the following code in the
 module:
-```
+```c
 static vm_fault_t mmap_fault(struct vm_fault *vmf){
   struct memo *memo = vmf->vma->vm_private_data;
   if(!memo)
@@ -58,7 +58,7 @@ The bug in this code comes from a fairly subtle and underdocumented
 contact of `vm_operations_struct` fault handlers: when a fault handler
 returns a page by populating a page in `struct vm_fault`, it is
 responsible for taking a reference on the page. This reference is
-released when the VMA is eventually deleted.
+released when the VMA is eventually unmapped.
 
 Because `mmap_fault()` fails to take a reference on the returned page,
 we can cause these pages to be returned to the page allocator while they
@@ -106,7 +106,7 @@ second-level page table can now be mapped into userspace and modified at
 will. This gives arbitrary read/write of kernel memory.
 
 The exploit follows this general strategy, but it operates on a number
-of pages and does some searching to locate:
+of pages (probably unnecessarily so?) and does some searching to locate:
  - A user-mapped page containing a second level page table.
  - The offset of the mappings controlled by the user-mapped page table.
 
