@@ -165,4 +165,4 @@ other problematic bytes. The rough exploitation path is:
 
 Once this is done, exiting the program will execute our shellcode.
 
-[userland_exploit.py](https://github.com/mmm-team/public-writeups/blob/main/seccon2023/pwn_umemo/userland_exploit.py)
+[userland_exploit.py](userland_exploit.py)

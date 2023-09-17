@@ -124,4 +124,4 @@ kill qemu and spawn a shell from the qemu process.
 This is one of the rare times we have been rewarded for writing a crashy
 exploit that doesn't clean up properly after itself :-)
 
-Exploit code: [qemu_exploit.cc](https://github.com/mmm-team/public-writeups/blob/main/seccon2023/pwn_qmemo/qemu_exploit.cc)
+Exploit code: [qemu_exploit.cc](qemu_exploit.cc)

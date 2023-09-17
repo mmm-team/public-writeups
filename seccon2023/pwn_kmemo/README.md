@@ -113,7 +113,7 @@ of pages (probably unnecessarily so?) and does some searching to locate:
 Once the exploit achieves arbitrary read/write, it locates the current
 process's `struct cred` and sets its uid/gid to 0.
 
-Exploit code: [kernel_exploit.cc](https://github.com/mmm-team/public-writeups/blob/main/seccon2023/pwn_kmemo/kernel_exploit.cc)
+Exploit code: [kernel_exploit.cc](kernel_exploit.cc)
 
 The [challenge author's
 writeup](https://github.com/shift-crops/CTFProblemArchive/blob/master/2023/SECCON%20Online/ukqmemo/solver/exploit_lkm.c)
