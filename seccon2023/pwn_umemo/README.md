@@ -161,7 +161,7 @@ other problematic bytes. The rough exploitation path is:
 6. Write a fake exit handler list in the binary's bss containing a
    mangled pointer to our shellcode address. The pointer mangling works
    to our benefit here because the mangled address will in most cases
-   not contain and 0x7f bytes.
+   not contain any 0x7f bytes.
 
 Once this is done, exiting the program will execute our shellcode.
 
