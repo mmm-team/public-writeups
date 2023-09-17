@@ -22,7 +22,7 @@ $2^L q_n + o_n = x_{i,n} T_i \bmod p_i$
 
 These aren't enough to solve the problem yet: we have about 4428 bits (9x117 + 27x125) of unknowns, but only about 3375 bits (27x125) of constraints (moduli).
 
-To get additional equations, consider the product $x_{n} x_{n+1}$. Mod $p_i$, this expands to $T_i^2 (a_i + b_i x_{i,n})$. The left-hand side expands to $(2^L q_n + o_n)(2^L q_{n+1} + o_{n+1}) = 2^{2L} q_n q_{n+1} + 2^L (q_n o_{n+1} + q_{n+1} o{n}) + o_{n} o_{n+1}$. Treating $q_n q_{n+1}$ as a new variable (on the order of 238 bits), this gives us 24 new equations, with 1872 bits (8x234) of new variables and 3000 bits (24x125) of constraints.
+To get additional equations, consider the product $x_{n} x_{n+1}$. Mod $p_i$, this expands to $T_i^2 (a_i + b_i x_{i,n})$. The left-hand side expands to $(2^L q_n + o_n)(2^L q_{n+1} + o_{n+1}) = 2^{2L} q_n q_{n+1} + 2^L (q_n o_{n+1} + q_{n+1} o_{n}) + o_{n} o_{n+1}$. Treating $q_n q_{n+1}$ as a new variable (on the order of 238 bits), this gives us 24 new equations, with 1872 bits (8x234) of new variables and 3000 bits (24x125) of constraints.
 
 Summing up, we find that we now have 6300 bits of variables and 6375 bits of constraints, so this should be linearly solvable. I use [solvelinmod.py](https://github.com/nneonneo/pwn-stuff/blob/master/math/solvelinmod.py) for the job, which implements an LLL-based solver for systems of linear equations over arbitrary moduli.
 
