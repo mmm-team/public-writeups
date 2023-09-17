@@ -9,10 +9,10 @@ We know that $de \equiv 1\ (\mathrm{mod}\ \phi)$, meaning $\phi \cdot x + 1 = de
 
 $$
 \begin{align*}
-\frac{de - 1}{x} &= \phi \\
-                 &= (p-1)(q-1) \\
-                 &= pq - p - q + 1 \\
-                 &= n - (p+q) + 1
+(de-1) / x &= \phi \\
+           &= (p-1)(q-1) \\
+           &= pq - p - q + 1 \\
+           &= n - (p+q) + 1
 \end{align*}
 $$
 
