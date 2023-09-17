@@ -102,5 +102,5 @@ This moves the stack to `rax`, which is equal to the `opaque` (aka the pointer
 to our `MariaState`) when the gadget is called. From here, the exploit ROPs to
 mprotect to gain code execution.
 
-[qemu_escape.cc](https://github.com/mmm-team/public-writeups/blob/main/hitcon2023/full_chain_wall_maria/qemu_escape.cc)
+[qemu_escape.cc](qemu_escape.cc)
 

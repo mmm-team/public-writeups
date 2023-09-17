@@ -106,12 +106,10 @@ in any free lists.
 
 Additionally, it no longer relies on the double-freed buffer aligning
 with the start of a `struct cred`. Instead, after double-freeing the
-buffer, the exploit filles the buffer with a thread's `struct cache`.
-The then triple-frees the buffer, then fills it with a privileged
-`struct cache`. This takes advantage of the fact that `kfree` will
-happily add a misaligned address to a slab cache free list without any
-checks.
+buffer, the exploit filles the buffer with a thread's `struct cred`. The
+then triple-frees the buffer, then fills it with a privileged `struct
+cred`. This takes advantage of the fact that `kfree` will happily add a
+misaligned address to a slab cache free list without any checks.
 
-See
-[kernel_exploit_post_ctf.cc](https://github.com/mmm-team/public-writeups/blob/main/hitcon2023/full_chain_wall_rose/kernel_exploit_post_ctf.cc)
-for the improved exploit.
+See [kernel_exploit_post_ctf.cc](kernel_exploit_post_ctf.cc) for the
+improved exploit.
