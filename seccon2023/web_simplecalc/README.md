@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 });
 ```
 
-The app applies a CSP to, ostensibly, all locations of the app, with a `default-src` set to `http://simplecalc.seccon.games:3000/js/index/js` (or `localhost` if running locally, or according to the bot) allowing it to `unsafe-eval`.
+The app applies a CSP to, ostensibly, all locations of the app, with a `default-src` set to `http://simplecalc.seccon.games:3000/js/index.js` (or `localhost` if running locally, or according to the bot) allowing it to `unsafe-eval`.
 
 ```js
 app.get('/flag', (req, res) => {
