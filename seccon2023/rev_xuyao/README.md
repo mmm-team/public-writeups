@@ -40,4 +40,4 @@ def encrypt(inp, length, xorkey, out):
         encrypt_block(inp_state, bufs_c, out) # output as u32s, maybe byteswapped
 ```
 
-Solve script in [solve.py](`solve.py`).
+Solve script in [`solve.py`](solve.py).

@@ -13,4 +13,4 @@ for i in range(0x1337):
     (driver+0x3000)[i%0x25] ^= (i&0xff) ^ handler_bytes[i%0x584]
 ```
 
-Solve script in [solve.py](`solve.py`).
+Solve script in [`solve.py`](solve.py).

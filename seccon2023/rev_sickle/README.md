@@ -87,4 +87,4 @@ for i in flag_chunks:
 # check that l == [8215359690687096682, ..., 18138828537077112905]
 ```
 
-Solve script in [solve.py](`solve.py`).
+Solve script in [`solve.py`](solve.py).

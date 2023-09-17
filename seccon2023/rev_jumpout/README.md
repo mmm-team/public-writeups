@@ -12,4 +12,4 @@ sub_1480:
 ```
 so we have `flag[i] == 0x4010[i] ^ 0x55 ^ i ^ 0x4030[i]`.
 
-Solve script in [solve.py](`solve.py`).
+Solve script in [`solve.py`](solve.py).

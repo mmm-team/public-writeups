@@ -33,4 +33,4 @@ Then `Q(n)` computes the `n`th prime+Perrin pseudoprime.
 
 We can grab a list of Perrin pseudoprimes from [OEIS](https://oeis.org/A013998), then merge it with list of primes.
 
-Solve script in [solve.py](`solve.py`).
+Solve script in [`solve.py`](solve.py).
