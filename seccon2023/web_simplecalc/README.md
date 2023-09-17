@@ -29,7 +29,49 @@ app.use((req, res, next) => {
 
 The app applies a CSP to, ostensibly, all locations of the app, with a `default-src` set to `http://simplecalc.seccon.games:3000/js/index/js` (or `localhost` if running locally, or according to the bot) allowing it to `unsafe-eval`.
 
-The 
+```js
+app.get('/flag', (req, res) => {
+  console.log(req.cookies.token);
+  if (req.cookies.token !== ADMIN_TOKEN || !req.get('X-FLAG')) {
+    return res.send('No flag for you!');
+  }
+  return res.send(FLAG);
+});
+```
+
+Flag is in an endpoint, and you need both an admin token and the presence of an X-FLAG header to get it. The header is easy but the token means only the admin will actually be able to see the flag.
+
+```js
+app.post('/report', reportLimiter, async (req, res) => {
+  const { expr } = req.body;
+
+  const url = new URL(`http://localhost:${PORT}/`)
+  url.searchParams.append('expr', expr);
+
+  try {
+    await visit(url);
+    return res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send('Something wrong');
+  }
+});
+```
+
+Admin only visits sites under the challenge domain. No cross-site shenanigans.
+
+In bot.js: 
+
+```js
+   await page.setCookie({
+      name: 'token',
+      value: ADMIN_TOKEN,
+      domain: `${APP_HOST}:${APP_PORT}`,
+      httpOnly: true
+    });
+```
+
+The ADMIN_TOKEN is httpOnly, so we can't steal it for ourselves.
 
 
 ## Unintended Attack
