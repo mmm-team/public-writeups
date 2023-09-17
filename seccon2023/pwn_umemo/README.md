@@ -121,9 +121,9 @@ static void *__pgoff_to_memopage(struct memo *memo, const pgoff_t pgoff, const b
 }
 ```
 
-This page table scheme can address exactly `9 + 9 + 12 = 30` bytes of
-memory, which is eaxctly `MEMOPAGE_SIZE_MAX`. This means that when
-`get_memo_ro` and `get_memo_rw` receive a value greater than
+This page table scheme can address exactly `9 + 9 + 12 = 30` bits of
+address space, which is exactly `MEMOPAGE_SIZE_MAX`. This means that
+when `get_memo_ro` and `get_memo_rw` receive a value greater than
 `MEMOPAGE_SIZE_MAX`, the address translatoin logic wraps back around to
 zero (so whatever page backing offset `n` also backs offset `n +
 MEMOPAGE_SIZE_MAX`).
