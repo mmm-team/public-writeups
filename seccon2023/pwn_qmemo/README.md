@@ -113,13 +113,13 @@ pointer and derives the pointer guard used for function pointer
 mangling. It then installs an exit handler (with the necessary function
 pointer mangling) to call `system(command)` when qemu exits.
 
-The exploit cause qemu to exit on its own. Despite searching for a few
-minutes the author was not able to find a trivial way to cause qemu to
-exit, even as root (the kernel did not appear to have the sysrq triggers
-compiled in). Instead, we rely on the previous exploit in the "full
-chain" (the kmemo exploit) to crash the kernel and cause qemu to exit.
-Exiting the root shell spawned by the kmemo exploit is sufficient to
-kill qemu and spawn a shell from the qemu process.
+The exploit does not cause qemu to exit on its own. Despite searching
+for a few minutes the author was not able to find a trivial way to cause
+qemu to exit, even as root (the kernel did not appear to have the sysrq
+triggers compiled in). Instead, we rely on the previous exploit in the
+"full chain" (the kmemo exploit) to crash the kernel and cause qemu to
+exit. Exiting the root shell spawned by the kmemo exploit is sufficient
+to kill qemu and spawn a shell from the qemu process.
 
 This is one of the rare times we have been rewarded for writing a crashy
 exploit that doesn't clean up properly after itself :-)
