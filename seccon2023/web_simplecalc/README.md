@@ -1,9 +1,9 @@
 # Simplecalc - Web problem - writeup by Vie
 
-> (132 pt)
-> author:Arkwarmup
+> (193 pt)
+> author: Satoooon
 >
->This is a simplest calculator app.
+> This is a simplest calculator app.
 > 
 > Note: Don't forget that the target host is localhost from the admin bot.
 >
