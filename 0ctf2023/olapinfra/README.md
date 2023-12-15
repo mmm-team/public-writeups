@@ -1,11 +1,3 @@
-<style>
-    .caption {
-        display:block;
-        float:right;
-    }
-</style>
-
-
 # Olapinfra writeup
 ## Summary
 Part 1: SQL injection on `web` => Clickhouse `jdbc` script driver => RCE<br>
