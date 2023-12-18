@@ -6,7 +6,7 @@ Looking at the rom in IDA using [this loader](https://github.com/0xEBFE/3DSX-IDA
 notice that the function at `0x10F4B8` (loader base is `0x108000`) looks like a check function:
 we're taking 2 ints, then evaluating 3 linear functions on them and checking the output.
 
-We can guess that these 2 ints are the `x` and `y` position when collecting a flower.
+We can guess that these 2 ints are the `x` and `y` position when collecting a flower. We can solve the linear equations using e.g. Sage.
 
 We then run citra with the gdb stub enabled, and in `arm-none-eabi-gdb`, we run:
 
