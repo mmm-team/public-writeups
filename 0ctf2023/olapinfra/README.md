@@ -78,7 +78,7 @@ CREATE FUNCTION [db_name.]function_name AS class_name
 ```
 <span class="caption">_file\_uri??_</span>
 
-So, we followed instructions [here](https://docs.cloudera.com/data-warehouse/cloud/querying-data/topics/hive_create_udf_class.html), exposed the JAR on a web server, sent a query to `hive` to create the function, and then executed it. This gave us RCE on part 2, so the final bit to complete was actually doing everything from part 1's RCE on `clickhouse`.<br>
+So, we followed instructions [here](https://docs.cloudera.com/data-warehouse/cloud/querying-data/topics/hive_create_udf_class.html), exposed the JAR on a perl web server, sent a query to `hive` to create the function, and then executed it. This gave us RCE on part 2, so the final bit to complete was actually doing everything from part 1's RCE on `clickhouse`.<br>
 
 <details closed>
     <summary>Source for JAR code</summary>
@@ -170,7 +170,7 @@ So, we converted the above script to a binary (`PyInstaller`), sent it over the 
 
 `0ctf{the_world_is_chaos_and_so_do_this_challenge}`<br>
 
-(Btw, because everything but `web` is on the inner network, they can't download anything publicly accessible, and because the SQL injection vector is in a query param, we can only send about 7kB of data per connection. The binaries alone were 3MB...)
+(Btw, because everything but `web` is on the inner network, they can't download anything publicly accessible, and because the SQL injection vector is in a query param, we can only send about 4kB of data per connection. The binaries alone were 3MB...)
 
 ## Sources:
 - https://github.com/ClickHouse/clickhouse-jdbc-bridge (ClickHouse JDBC bridge)
