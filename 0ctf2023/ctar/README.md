@@ -44,7 +44,7 @@ Putting it all together, we can carry out the full attack:
 3. Upload `b"\x00" * 8 + (tar1 XOR keystream)`, which clears the flag in the mapping, leaves the actual flag behind, but leaves our directory in a bad state
 4. Upload `b"\x00" * 8 + (tar2 XOR keystream)`, which fixes the directory
 5. Download the ctar file, which contains the flag file (call this `flag_ctar`)
-6. Upload `flag_ctar XOR (b"\xcc" * len(flag_ctar)`; call the output from the server error `flag_tar_cc`
+6. Upload `flag_ctar XOR (b"\xcc" * len(flag_ctar))`; call the output from the server error `flag_tar_cc`
 7. XOR `flag_tar_cc` with `b"\xcc" * len(flag_tar_cc)` to get `flag_tar`
 8. Extract `flag_tar` to get the flag
 
