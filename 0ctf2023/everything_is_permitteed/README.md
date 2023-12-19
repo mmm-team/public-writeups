@@ -26,4 +26,4 @@ containing a fake non-loaded segment when treated as 32 bit.
 This allows us to execute arbitrary 32 bit and 64 bit syscalls, and
 obtain the flag.
 
-[nothing_is_true.asm](nothing_is_true.asm)
+[everything_is_permitted.asm](everything_is_permitted.asm)

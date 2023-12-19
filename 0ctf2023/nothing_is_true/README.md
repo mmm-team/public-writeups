@@ -2,8 +2,8 @@
 
 ## Overview
 
-We are given a service containing a Python script which an ELF file,
-performs the following validations on it:
+We are given a service containing a Python script which accepts an ELF
+file, performs the following validations on it:
 
 ```py
 from elftools.elf.elffile import ELFFile
@@ -65,7 +65,7 @@ def check_elf(data):
     return check_segments(elf)
 ```
 
-Then executes it under a binary which first chroots into a directory
+then executes it under a binary which first chroots into a directory
 containing a flag file and installs the following seccomp policy:
 ```
 =================================
