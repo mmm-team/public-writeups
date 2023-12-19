@@ -24,7 +24,7 @@ The challenge consists of the following interaction sequence:
 
 1. We provide the two 512-bit primes $p_b$, $q_b$ for Bob.
 2. The LCG is initialized with a random prime modulus $p$ of 1024 bits, six random coefficients $a$, one random addend $b$, and a six-term random state $s$.
-    - Outputs are $s_0, s_1, s_2$, ... where $s_0$ through $s_5$ are the initial state, and for $n \ge 6$: $$s_n = (\sum_{i=0}^{5} s_{n - 6 + i} a_i) + b \bmod p$$
+    - Outputs are $s_0, s_1, s_2$, ... where $s_0$ through $s_5$ are the initial state, and for $n \ge 6$: $$s_n = \left(\sum_{i=0}^{5} s_{n - 6 + i} a_i\right) + b \bmod p$$
 3. A random 1024-bit RSA key $p_a,q_a, n_a$, random 329-bit public exponent $e_a$, and corresponding private exponent $d_a$ are generated for Alice.
 4. A random 329-bit public exponent $e_b$ and corresponding private exponent are generated for "Bob".
 5. A random 64-bit "secret" $S$ is encrypted with Alice's public key to make $S_a$.
@@ -76,7 +76,7 @@ In phase 1, we can repeatedly encrypt -1 to gain useful information: the first n
 
 We don't know $n_a - 1$, but we can compute discrete logarithms of $c_k$ modulo some "generator" base $g$, such that $n_a - 1 \equiv g^x \bmod n_b$. Note that since the multiplicative group $\mathbb{Z}_{n_b}^*$ is not a cyclic group, there is no single base that works for all $n_a - 1$. However, we can choose a suitable $g$ based on the parity of exponents from discrete log on $p$, $q$.
 
-By taking the discrete log of each $c_k$ to the base $g$ (such that $c_k \equiv g^{x_k} \bmod n_b$), we will end up with a series of equations $x_k = x e_k \bmod \phi_{n_b}$, with $x_k$ known and all other variables unknown. Observe that $e_k = s_k \oplus e'_k = s_k + e''_k$ for some $|e''_k| < 2^{329}$. We can also set $y = x^{-1}$, giving us the linear equations $y x_k = s_k + e{'}{'}_k \bmod \phi_{n_b}$.
+By taking the discrete log of each $c_k$ to the base $g$ (such that $c_k \equiv g^{x_k} \bmod n_b$), we will end up with a series of equations $x_k = x e_k \bmod \phi_{n_b}$, with $x_k$ known and all other variables unknown. Observe that $e_k = s_k \oplus e'_k = s_k + e''_k$ for some $|e''_k| < 2^{329}$. We can also set $y = x^{-1}$, giving us the linear equations $yx_k = s_k + e''_k \bmod \phi _{n_b}$.
 
 By writing $s_k$ in terms of the initial $s_0, ..., s_5$ and known LCG parameters $a, b, p$, we get a linear system of modular equations where all of the unknowns are bounded, which can be solved with the general bounded-variable linear equation solver [solvelinmod](https://github.com/nneonneo/pwn-stuff/blob/master/math/solvelinmod.py) to simultaneously recover $s$ and $y$. The solver uses lattice reduction under the hood, and generalizes to problems such as the Hidden Number Problem and other linear modular equation problems.
 
