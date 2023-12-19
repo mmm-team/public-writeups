@@ -34,8 +34,8 @@ The exploit script can be found in [`exploit.js`](exploit.js). It performs the f
 
 1. Define a JS function whose bytecode will be overwritten
 2. Use the Memory Corruption API to obtain a writable reference to the function's bytecode
-3. Overwrite the bytecode to execute `ldar +1; return`, which will retrieve and return the stored RIP on the stack. This RIP points into the d8 binary, and will be interpreted as an [Smi](https://v8.dev/blog/elements-kinds) when returned to JavaScript, thus allowing us to leak the low 32 bits of an executable pointer.
+3. Overwrite the bytecode to execute `Ldar +1; Return`, which will retrieve and return the stored RIP on the stack. This RIP points into the d8 binary, and will be interpreted as an [Smi](https://v8.dev/blog/elements-kinds) when returned to JavaScript, thus allowing us to leak the low 32 bits of an executable pointer.
 4. Obtain the high 32 bits of the executable pointer by leaking a native heap address from a MemoryChunk object at a fixed offset in the heap (the MemoryChunk is always at v8 heap base + 0x40000)
 5. Construct a ROP chain in memory using gadgets from the d8 binary
-6. Overwrite the bytecode again to execute `ldaconstant [0]; star +17; return`, which writes the address of the ROP chain to the saved RBP of a parent stack frame.
+6. Overwrite the bytecode again to execute `LdaConstant [0]; Star +17; Return`, which writes the address of the ROP chain to the saved RBP of a parent stack frame.
 7. Upon finishing the JS script, the ROP chain will be triggered, giving us a shell.
