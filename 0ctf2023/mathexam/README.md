@@ -9,7 +9,7 @@ running thie script.
 
 ## Part 1
 
-The bash script requires the user to entre an "exam integrity
+The bash script requires the user to enter an "exam integrity
 statement", asks the the user 100 addition questions, checking the
 answers, prints a score, then exits.
 
