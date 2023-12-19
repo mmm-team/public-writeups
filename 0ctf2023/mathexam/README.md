@@ -13,7 +13,7 @@ The bash script requires the user to entre an "exam integrity
 statement", asks the the user 100 addition questions, checking the
 answers, prints a score, then exits.
 
-The bug lies the following code:
+The bug lies in the following code:
 ```bash
     read line
 
@@ -52,7 +52,7 @@ second flag.
 
 Part 3 was the same as part 2, except this time, we need to connect to
 `ctf@third`. The SSH server on `second` does not allow port forwarding
-so we once again use bash as a proxy in the same way.
+so we bash to proxy the connection in the same way.
 
 ## Part 4
 
@@ -63,9 +63,9 @@ somehow. After debugging this for a bit, we realized that bash's read
 builtin is unable to return null bytes. Searching for solutions to this
 online, we found
 https://unix.stackexchange.com/questions/626641/how-to-read-binary-data-including-zero-bytes-using-bash-builtin-read
-and adapted the solution from there (see solution below).
+and adapted the solution from there (see our solution script below).
 
-Replacing `cat` with the fixed read loop allows us to SSH to
+Replacing `cat` with a null-preserving read loop allows us to SSH to
 `ctf@fourth`, which gives us the final flag.
 
 ## Solution
