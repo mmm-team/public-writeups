@@ -6,7 +6,13 @@ How2Compile was a series of 4 reversing challenges: `how2compile-high`, `how2com
 
 ## Description
 
-The first 3 challenges had the text: "The flag is in HIR", "The flag is in MIR", and "The flag is in LIR" respectively, along with all being on the same port `nc chall.ctf.0ops.sjtu.cn 30002` and having the same [download](./how2compile_7e4f6a5038e2ae91146106bf707a0eea.zip).
+The first 3 challenges had the text: "The flag is in HIR", "The flag is in MIR", and "The flag is in LIR" respectively, along with all being on the same port `nc chall.ctf.0ops.sjtu.cn 30002` and having the same [download](./how2compile_7e4f6a5038e2ae91146106bf707a0eea.zip). For example:
+
+> The flag is in HIR
+>
+> `nc chall.ctf.0ops.sjtu.cn 30002`
+>
+> [download](./how2compile_7e4f6a5038e2ae91146106bf707a0eea.zip)
 
 The last challenge, `how2compile-allinone` was released later in the contest, and had the description:
 
