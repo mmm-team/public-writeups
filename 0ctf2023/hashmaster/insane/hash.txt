@@ -1,0 +1,226 @@
+
+.include "macros.txt"
+.macro hash_body
+
+push	r15
+push	r14
+push	r13
+mov	r13, rdi
+push	r12
+push	rbp
+push	rbx
+
+
+sub	rsp, 0x118
+movdqu	xmm2, xmmword ptr [rsi]
+
+push rbx
+mov rbx, 0x2000040
+movdqa	xmm0, xmmword ptr [rbx]
+pop rbx
+
+xor	eax, eax
+movdqu	xmm4, xmmword ptr [rsi + 0x10]
+movdqu	xmm3, xmmword ptr [rsi + 0x20]
+lea	rax, [rsp + 0x40]
+movdqa	xmm1, xmm0
+movdqa	xmm6, xmm0
+movdqu	xmm5, xmmword ptr [rsi + 0x30]
+lea	rdx, [rsp + 0x100]
+pand	xmm6, xmm4
+psrlw	xmm4, 8
+pand	xmm1, xmm2
+psrlw	xmm2, 8
+packuswb	xmm1, xmm6
+movdqa	xmm6, xmm0
+packuswb	xmm2, xmm4
+movdqa	xmm4, xmm0
+pand	xmm6, xmm5
+pand	xmm4, xmm3
+psrlw	xmm5, 8
+psrlw	xmm3, 8
+packuswb	xmm4, xmm6
+movdqa	xmm6, xmm0
+packuswb	xmm3, xmm5
+movdqa	xmm5, xmm0
+pand	xmm6, xmm4
+pand	xmm5, xmm1
+psrlw	xmm4, 8
+psrlw	xmm1, 8
+packuswb	xmm5, xmm6
+packuswb	xmm1, xmm4
+movdqa	xmm4, xmm0
+pand	xmm0, xmm3
+pand	xmm4, xmm2
+psrlw	xmm3, 8
+movdqa	xmm10, xmm5
+psrlw	xmm2, 8
+packuswb	xmm4, xmm0
+pxor	xmm0, xmm0
+packuswb	xmm2, xmm3
+punpckhbw	xmm5, xmm0
+movdqa	xmm6, xmm4
+movdqa	xmm7, xmm1
+punpckhbw	xmm4, xmm0
+movdqa	xmm9, xmm2
+pxor	xmm3, xmm3
+punpcklbw	xmm10, xmm0
+punpcklbw	xmm6, xmm0
+punpcklbw	xmm9, xmm0
+punpckhbw	xmm2, xmm0
+punpcklbw	xmm7, xmm0
+punpckhbw	xmm1, xmm0
+movdqa	xmm8, xmm5
+movdqa	xmm0, xmm4
+punpckhwd	xmm0, xmm3
+punpckhwd	xmm8, xmm3
+movdqa	xmm11, xmm2
+psllw	xmm1, 8
+pslld	xmm8, 0x18
+punpckhwd	xmm11, xmm3
+pslld	xmm0, 0x10
+psllw	xmm7, 8
+movdqa	xmm12, xmm9
+por	xmm0, xmm8
+movdqa	xmm8, xmm1
+punpcklwd	xmm4, xmm3
+punpckhwd	xmm8, xmm3
+punpcklwd	xmm5, xmm3
+punpcklwd	xmm12, xmm3
+por	xmm8, xmm11
+movdqa	xmm11, xmm10
+punpckhwd	xmm10, xmm3
+por	xmm0, xmm8
+movdqa	xmm8, xmm6
+punpcklwd	xmm11, xmm3
+punpcklwd	xmm8, xmm3
+pslld	xmm11, 0x18
+punpckhwd	xmm6, xmm3
+movaps	xmmword ptr [rsp + 0x30], xmm0
+pslld	xmm8, 0x10
+pslld	xmm6, 0x10
+punpckhwd	xmm9, xmm3
+psrldq	xmm0, 8
+por	xmm8, xmm11
+movdqa	xmm11, xmm7
+punpcklwd	xmm2, xmm3
+punpcklwd	xmm11, xmm3
+pslld	xmm10, 0x18
+punpckhwd	xmm7, xmm3
+pslld	xmm4, 0x10
+pslld	xmm5, 0x18
+punpcklwd	xmm1, xmm3
+por	xmm11, xmm12
+por	xmm6, xmm10
+por	xmm7, xmm9
+por	xmm4, xmm5
+por	xmm1, xmm2
+por	xmm8, xmm11
+por	xmm6, xmm7
+por	xmm1, xmm4
+movaps	xmmword ptr [rsp], xmm8
+movaps	xmmword ptr [rsp + 0x10], xmm6
+movaps	xmmword ptr [rsp + 0x20], xmm1
+nop	word ptr cs:[rax + rax]
+
+
+.rep 0x18
+label_1210
+.endr
+
+movdqu	xmm2, xmmword ptr [r13 + 0x50]
+mov	ebp, dword ptr [r13 + 0x5c]
+xor	r8d, r8d
+mov	r12, rsp
+mov	r10d, dword ptr [r13 + 0x58]
+mov	r9d, dword ptr [r13 + 0x54]
+movabs r14, 0x2000050
+movdqu	xmm1, xmmword ptr [r13 + 0x60]
+mov	edi, dword ptr [r13 + 0x6c]
+movd	esi, xmm2
+mov	ebx, dword ptr [r13 + 0x68]
+mov	r11d, dword ptr [r13 + 0x64]
+movd	ecx, xmm1
+jmp	label_1301\@
+nop	word ptr [rax + rax]
+
+mov	ebx, r11d
+mov	r10d, r9d
+mov	r11d, ecx
+mov	r9d, esi
+mov	ecx, r15d
+mov	esi, eax
+
+label_1301\@:
+mov	eax, ecx
+mov	edx, ecx
+mov	r15d, ecx
+ror	edx, 0xb
+ror	eax, 6
+and	r15d, r11d
+xor	eax, edx
+mov	edx, ecx
+rol	edx, 7
+xor	eax, edx
+mov	edx, dword ptr [r12 + r8]
+add	edx, dword ptr [r14 + r8]
+add	r8, 4
+add	eax, edx
+mov	edx, ecx
+not	edx
+and	edx, ebx
+xor	edx, r15d
+mov	r15d, r9d
+add	eax, edx
+mov	edx, esi
+and	r15d, r10d
+add	eax, edi
+mov	edi, esi
+ror	edx, 2
+ror	edi, 0xd
+xor	edx, edi
+mov	edi, esi
+rol	edi, 0xa
+xor	edx, edi
+mov	edi, r9d
+xor	edi, r10d
+and	edi, esi
+xor	edi, r15d
+lea	r15d, [rax + rbp]
+mov	ebp, r10d
+add	edx, edi
+mov	edi, ebx
+add	eax, edx
+cmp	r8, 0x100
+
+.rep 0x3f
+label_12f0_lol
+.endr
+
+movd	xmm7, r10d
+movd	xmm3, r9d
+movd	xmm0, eax
+punpckldq	xmm3, xmm7
+movd	xmm7, esi
+punpckldq	xmm0, xmm7
+movd	xmm7, ebx
+punpcklqdq	xmm0, xmm3
+paddd	xmm0, xmm2
+movd	xmm2, r11d
+punpckldq	xmm2, xmm7
+movups	xmmword ptr [r13 + 0x50], xmm0
+movd	xmm7, ecx
+movd	xmm0, r15d
+punpckldq	xmm0, xmm7
+punpcklqdq	xmm0, xmm2
+paddd	xmm0, xmm1
+movups	xmmword ptr [r13 + 0x60], xmm0
+add	rsp, 0x118
+pop	rbx
+pop	rbp
+pop	r12
+pop	r13
+pop	r14
+pop	r15
+
+.endm

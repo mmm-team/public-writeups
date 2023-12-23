@@ -1,0 +1,88 @@
+.macro label_1210
+
+movq	xmm2, qword ptr [rax - 0x3c]
+add	rax, 8
+movdqa	xmm1, xmm2
+movdqa	xmm3, xmm2
+movdqa	xmm4, xmm2
+psrld	xmm3, 0x12
+pslld	xmm1, 0xe
+por	xmm1, xmm3
+psrld	xmm4, 7
+movdqa	xmm3, xmm2
+pslld	xmm3, 0x19
+psrld	xmm2, 3
+por	xmm3, xmm4
+movdqa	xmm4, xmm0
+pxor	xmm1, xmm3
+psrld	xmm4, 0x11
+movdqa	xmm3, xmm0
+pxor	xmm1, xmm2
+psrld	xmm3, 0x13
+movdqa	xmm2, xmm0
+pslld	xmm2, 0xd
+por	xmm2, xmm3
+movdqa	xmm3, xmm0
+pslld	xmm3, 0xf
+psrld	xmm0, 0xa
+por	xmm3, xmm4
+pxor	xmm2, xmm3
+pxor	xmm0, xmm2
+movq	xmm2, qword ptr [rax - 0x48]
+paddd	xmm1, xmm0
+movq	xmm0, qword ptr [rax - 0x24]
+paddd	xmm0, xmm2
+paddd	xmm0, xmm1
+movq	qword ptr [rax - 8], xmm0
+cmp	rax, rdx
+.endm
+
+.macro label_12f0_lol
+mov	ebx, r11d
+mov	r10d, r9d
+mov	r11d, ecx
+mov	r9d, esi
+mov	ecx, r15d
+mov	esi, eax
+
+mov	eax, ecx
+mov	edx, ecx
+mov	r15d, ecx
+ror	edx, 0xb
+ror	eax, 6
+and	r15d, r11d
+xor	eax, edx
+mov	edx, ecx
+rol	edx, 7
+xor	eax, edx
+mov	edx, dword ptr [r12 + r8]
+add	edx, dword ptr [r14 + r8]
+add	r8, 4
+add	eax, edx
+mov	edx, ecx
+not	edx
+and	edx, ebx
+xor	edx, r15d
+mov	r15d, r9d
+add	eax, edx
+mov	edx, esi
+and	r15d, r10d
+add	eax, edi
+mov	edi, esi
+ror	edx, 2
+ror	edi, 0xd
+xor	edx, edi
+mov	edi, esi
+rol	edi, 0xa
+xor	edx, edi
+mov	edi, r9d
+xor	edi, r10d
+and	edi, esi
+xor	edi, r15d
+lea	r15d, [rax + rbp]
+mov	ebp, r10d
+add	edx, edi
+mov	edi, ebx
+add	eax, edx
+cmp	r8, 0x100
+.endm

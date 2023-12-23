@@ -1,0 +1,17 @@
+movabs rsp, 0x2000ff8
+
+mov rax, 0x20004a0
+{constantdata2_moves}
+
+mov rax, 0x2000040
+movabs rbx, 0x00ff00ff00ff00ff
+mov qword ptr [rax], rbx
+mov qword ptr [rax + 8], rbx
+
+mov rax, 0x2000050
+{constantdata1_moves}
+
+mov rax, 0x1180000
+{jit_segment}
+
+mov eax, 0x20004a0

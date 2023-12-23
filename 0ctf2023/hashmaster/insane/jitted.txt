@@ -1,0 +1,85 @@
+// the partial hash is in place, now we copy the template into memory 32-bytes at a time and fix it up
+
+.include "hash.txt"
+
+mov rax, 0x2000500
+{templatedata_movs}
+
+// fix up the template data
+mov rbx, 0x20004a0
+mov rcx, qword ptr [rbx]
+mov qword ptr [rax+0x2], rcx
+mov rcx, qword ptr [rbx+8]
+mov qword ptr [rax+0xf], rcx
+
+mov rcx, qword ptr [rbx+0x10]
+mov qword ptr [rax+0x1d], rcx
+mov rcx, qword ptr [rbx+0x18]
+mov qword ptr [rax+0x2b], rcx
+
+// ok now we just have to make a couple of hash calls
+.macro hash_addr base
+
+movups xmm0, xmmword ptr [\base + 0x0]
+movups xmmword ptr [0x2000450], xmm0
+movups xmm0, xmmword ptr [\base + 0x10]
+movups xmmword ptr [0x2000460], xmm0
+movups xmm0, xmmword ptr [\base + 0x20]
+movups xmmword ptr [0x2000470], xmm0
+movups xmm0, xmmword ptr [\base + 0x30]
+movups xmmword ptr [0x2000480], xmm0
+
+mov rdi, 0x2000450
+mov rsi, 0x2000450
+
+hash_body
+
+.endm
+
+hash_addr 0x2000500
+
+mov rax, 0x2000500
+{constantdata3_moves}
+
+hash_addr 0x2000500
+
+// todo: the final hash function
+
+movabs r13, 0x2000450
+movabs rbx, 0x2000000
+
+mov r12d, dword ptr [r13 + 0x50]
+BSWAP r12d
+mov dword ptr [rbx], r12d
+
+mov r12d, dword ptr [r13 + 0x54]
+BSWAP r12d
+mov dword ptr [rbx+0x4], r12d
+
+mov r12d, dword ptr [r13 + 0x58]
+BSWAP r12d
+mov dword ptr [rbx+0x8], r12d
+
+mov r12d, dword ptr [r13 + 0x5c]
+BSWAP r12d
+mov dword ptr [rbx+0xc], r12d
+
+mov r12d, dword ptr [r13 + 0x60]
+BSWAP r12d
+mov dword ptr [rbx+0x10], r12d
+
+mov r12d, dword ptr [r13 + 0x64]
+BSWAP r12d
+mov dword ptr [rbx+0x14], r12d
+
+mov r12d, dword ptr [r13 + 0x68]
+BSWAP r12d
+mov dword ptr [rbx+0x18], r12d
+
+mov r12d, dword ptr [r13 + 0x6c]
+BSWAP r12d
+mov dword ptr [rbx+0x1c], r12d
+
+hlt
+mov rax, [0x0]
+.align 8

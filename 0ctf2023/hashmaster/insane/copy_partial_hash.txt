@@ -1,0 +1,20 @@
+// copy the current hash value into the buffer
+
+// this line is moved into setup
+//movabs eax, 0x20004a0
+
+movabs rbx, {hash_0}
+mov [rax], rbx
+movabs rbx, {hash_1}
+mov [rax+8], rbx
+
+
+movabs rbx, {hash_2}
+mov [rax+0x10], rbx
+movabs rbx, {hash_3}
+mov [rax+0x18], rbx
+
+mov eax, 0x1180000
+jmp rax
+
+.align 0x40, 0x90
