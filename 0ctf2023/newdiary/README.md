@@ -18,8 +18,8 @@ The approach we arrived at to actually leak the nonce was to use trigrams; so in
 
 The full exploit chain is:
 - Use a meta redirect to get the admin to our own site
-- Open the "view reported post" page in an iframe on our site, viewing a post that loads our custom nonce-leaking CSS
+- `window.open` a the "view reported post" page from our site, viewing a post that loads our custom nonce-leaking CSS
 - Receive all of the trigrams
 - Reconstruct the nonce from the trigrams
 - Create a new post containing a script in a srcdoc-based iframe that sends us the cookies, which contains the nonce we recovered
-- Change the hash on the iframe to make the admin load this new post
+- Change the hash on the `window.open`'d page to make the admin load this new post
