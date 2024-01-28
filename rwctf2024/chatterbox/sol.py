@@ -5,7 +5,7 @@ import requests
 
 CHALL_URL = "http://localhost:8080"
 # CHALL_URL = "http://47.89.225.36:36207"
-OUR_DOMAIN = "118.31.164.56"
+OUR_DOMAIN = "whatever_ip_your_server_is_on"
 
 charset = "0123456789abcdef-!ghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_{}%@#%&*()_=,.<>/\\?[];"
 
