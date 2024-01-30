@@ -12,7 +12,9 @@ The Lightsocks application referenced in the description is a Shadowsocks altern
 
 Our initial approach was to try and use the fact that [the password that the application generates is seeded with the current unix timestamp with only second-level resolution](https://github.com/gwuhaolin/lightsocks/blob/63d90182a1daac34e3a8eae86b342776be7e025b/password.go#L17), meaning that we could potentially brute-force the seed used to generate it given a known starting point and some known plaintext.  Since we knew that the traffic is just a SOCKS5 connection under the hood, we were able to deduce some byte values from the handshake.  For example, here is a hexdump of the beginning of the first conversation in the PCAP:
 
-<img src="./pcap.png" height="200" />
+<p align="center">
+	<img src="./pcap.png" height="400" />
+</p>
 
 The first message in a SOCKS5 connection is a client greeting, consisting of a version number, a number of supported authentication methods, and then one byte per authentication method.  From this we can deduce that the first two bytes are `05 01`, since the version number is 5 and it's followed by only one authentication type.  Similarly, we can infer that the client's second message is a connection request, of which the third byte is a reserved field always set to `00`.  With this information we can deduce that the cipher maps `05` to `f3`, `01` to `99`, and `00` to `78`, allowing us to check any guess we might have for the seed used to generate the password.
 
