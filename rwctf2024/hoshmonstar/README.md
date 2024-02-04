@@ -22,9 +22,11 @@ $= k x^{192 + n} + M x^{128} + M x^{192+n} + M x^{64} + M + p_o x^{128} + p_i x^
 
 This is a fully linear function in $k$ (modulo the CRC polynomial). By manipulating the code, we can also arrange for the entire constant term to become zero (by editing bits in $m$ to make $m x^{192} = M x^{128} + M x^{192+n} + M x^{64} + M + p_o x^{128} + p_i x^{192+n}$), thereby reducing the HMAC-CRC64 calculation to a single multiply-and-reduce operation.
 
+### Shellcoding
+
 The naive way to do polynomial multiplication in GF(2^64) involves 64 shift-and-add operations, which would imply executing at least 64 basic blocks. Doing this for all three architectures would yield 192 basic block executions, leaving less than 100 bytes for the code.
 
-Luckily, Unicorn supports the *pmull* instruction on AArch64, which implements polynomial multiplication in GF(2^64). We can use [Barrett reduction](https://en.wikipedia.org/wiki/Barrett_reduction) to replace the reduction operation with a multiplication by a constant, and thereby implement the HMAC-CRC64 with just three invocations of pmull and no looping. While RISCV and x86-64 have similar polynomial multiplication instructions (clmul and pclmulqdq, respectively), neither of these are supported under Unicorn.
+Luckily, Unicorn supports the [*pmull*](https://developer.arm.com/documentation/ddi0602/2023-12/SIMD-FP-Instructions/PMULL--PMULL2--Polynomial-Multiply-Long-) instruction on AArch64, which implements polynomial multiplication in GF(2^64). We can use [Barrett reduction](https://en.wikipedia.org/wiki/Barrett_reduction) to replace the reduction operation with a multiplication by a constant, and thereby implement the HMAC-CRC64 with just three invocations of pmull and no looping. While RISCV and x86-64 have similar polynomial multiplication instructions (clmul and pclmulqdq, respectively), neither of these are supported under Unicorn.
 
 We can unroll the inner loop to reduce the basic block count to 32 per architecture, at the cost of a few more instruction bytes. Thus, in the end, we will spend 64 or so basic blocks, leaving 200+ bytes for code.
 
