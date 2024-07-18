@@ -29,7 +29,7 @@ The deobfuscated (via https://deobfuscate.io/), renamed, and reversed script is 
 
 Solve script is [here](./solve.py).
 
-## Credits 
+## Credits
 
-@babaisflag - reversing
-@ath0 - solve script
+- @babaisflag - reversing
+- @ath0 - solve script
