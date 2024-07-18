@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Starry Vault</title>
+    <!-- the framework for the code is taken from https://github.com/patriciogonzalezvivo/glslCanvas-->
+
+    <script type="text/javascript" src="script.min.js"></script>
+    <script src="https://wgld.org/j/minMatrix.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <style>
+        body {
+            background: #101515;
+        }
+
+        #canvas {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        ​ .blank {}
+
+        #credits {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            text-align: right;
+            background: rgba(0, 0, 0, .5);
+            padding: 12px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin: 0px
+        }
+
+        .label {
+            color: white;
+            font-family: Helvetica, Arial, sans-serif;
+            text-decoration: none;
+            line-height: 0.0;
+        }
+
+        #title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        #author {
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 100;
+        }
+
+        #main {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            color: #ccc;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            display: block;
+        }
+
+        #title {
+            font-size: 32px;
+            font-family: Times New Roman, Times, serif, Arial, sans-serif;
+        }
+
+        #crack {
+            margin: 1em 0em;
+            font-size: 16px;
+            font-family: Times New Roman, Times, serif, Arial, sans-serif;
+            color: #ccc;
+            background-color: transparent;
+            border-radius: 10%;
+            box-shadow: none;
+        }
+
+        #pattern-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .dot {
+            position: absolute;
+            color: black;
+            width: 5px;
+            height: 5px;
+            font-size: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 50%;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .dot.select:hover {
+            animation: pulse 150ms ease;
+        }
+
+        .dot.select,
+        .dot.selected {
+            background: yellow;
+            filter: drop-shadow(0 0 10px yellow);
+        }
+
+        .dot.win {
+            background: green;
+            filter: drop-shadow(0 0 10px white);
+        }
+        .dot.lose {
+            background: red;
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+
+            50% {
+                transform: scale(1.5);
+                border-color: rgba(255, 255, 255, 0.5);
+            }
+
+            to {
+                transform: scale(1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+
+        #lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            filter: drop-shadow(0 0 10px white);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h1 id="title">Crack the safe</h1>
+        <div id="pattern-container">
+            <svg id="lines"></svg>
+            <svg id="lines"></svg>
+            <div class="dot" style="left: 399.224px; top: 226.124px;" data-number="0"></div>
+            <div class="dot" style="left: 417.437px; top: 30.0244px;" data-number="1"></div>
+            <div class="dot" style="left: 313.181px; top: 331.827px;" data-number="2"></div>
+            <div class="dot" style="left: 426.689px; top: 105.679px;" data-number="3"></div>
+            <div class="dot" style="left: 170.326px; top: 97.0249px;" data-number="4"></div>
+            <div class="dot" style="left: 276.509px; top: 229.738px;" data-number="5"></div>
+            <div class="dot" style="left: 90.1581px; top: 54.922px;" data-number="6"></div>
+            <div class="dot" style="left: 11.9092px; top: 122.761px;" data-number="7"></div>
+            <div class="dot" style="left: 468.594px; top: 409.419px;" data-number="8"></div>
+            <div class="dot" style="left: 97.218px; top: 246.861px;" data-number="9"></div>
+            <div class="dot" style="left: 474.489px; top: 198.084px;" data-number="10"></div>
+            <div class="dot" style="left: 76.2379px; top: 471.045px;" data-number="11"></div>
+            <div class="dot" style="left: 117.125px; top: 290.302px;" data-number="12"></div>
+            <div class="dot" style="left: 234.579px; top: 177.456px;" data-number="13"></div>
+            <div class="dot" style="left: 51.7672px; top: 326.866px;" data-number="14"></div>
+            <div class="dot" style="left: 402.986px; top: 340.723px;" data-number="15"></div>
+            <div class="dot" style="left: 43.5805px; top: 273.83px;" data-number="16"></div>
+            <div class="dot" style="left: 347.768px; top: 66.6313px;" data-number="17"></div>
+            <div class="dot" style="left: 308.64px; top: 475.112px;" data-number="18"></div>
+            <div class="dot" style="left: 287.494px; top: 169.583px;" data-number="19"></div>
+            <div class="dot" style="left: 240.157px; top: 316.249px;" data-number="20"></div>
+            <div class="dot" style="left: 391.32px; top: 408.142px;" data-number="21"></div>
+            <div class="dot" style="left: 183.0512px; top: 14.065px;" data-number="22"></div>
+            <div class="dot" style="left: 49.8177px; top: 6.27686px;" data-number="23"></div>
+            <div class="dot" style="left: 291.1px; top: 44.6761px;" data-number="24"></div>
+        </div>
+        <p id="flag"></p>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas-calc"></canvas>
+    <div id="credits">
+        <p class="label" id="title">Starry vault</p>
+        <p class="label" id="author">bronson113</p>
+    </div>
+
+</body>
+</html>
