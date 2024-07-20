@@ -24,13 +24,13 @@ Author: bronson113
 ```
 
 # Gleamering Star
-The service provides register, login, add-post, encrypt-post features. The first goal is reading admin's encrypted post, and second goal is gaining arbitrary code executoin.
+The service provides register, login, add-post, and encrypt-post features. The first goal is reading the admin's encrypted post, and the second goal is gaining arbitrary code execution.
 
-To read other user's encrypted post, we must know item_id which depends on `AUTHORIZATION_KEY`. Since the post encryption uses `AUTHORIZATION_KEY` too, we have to leak `AUTHORIZATION_KEY`.
+To read another user's encrypted post, we must know item_id, which depends on `AUTHORIZATION_KEY`. Since the post encryption uses `AUTHORIZATION_KEY`, too, we have to leak it.
 
-While encrypting the post, the service uses ffi, and the compiled ffi library locate at gleamering_hope/priv/gleamering_hope_ffi.so.
+The service uses ffi to encrypt the post, and the compiled ffi library is located at `gleamering_hope/priv/gleamering_hope_ffi.so`.
 
-The following is decompiled `stream_xor` function which used in encryption.
+The following is the decompiled `stream_xor` function used in encryption.
 
 ```c
 __int64 __fastcall stream_xor(__int64 env, __int64 a2, _QWORD *a3)
@@ -76,17 +76,17 @@ __int64 __fastcall stream_xor(__int64 env, __int64 a2, _QWORD *a3)
 
 While encrypting the message via xor, there is no mod to key index (`buf.data[prefix.size + i] = key.data[i] ^ msg.data[i];`). This can lead memory leak.
 
-So, we can dump large amount of bytes through memory leak and finding `AUTHORIZATION_KEY` was able.
+So, we can dump large amounts of bytes through memory leak and finding `AUTHORIZATION_KEY` was able.
 
 The full exploit script is in `gleamering-star-solver.py`.
 
 # Gleamering Hope
-If the `is_backdoor` function return true, the `hex_decode` function is called. But, since the dst buffer is `&buf` not `buf.data`, the stack buffer overflow is occured.
+If the `is_backdoor` function returns true, the `hex_decode` function is called. But, since the dst buffer is `&buf`, not `buf.data`, the stack buffer overflow occurred.
 
 Further, if the `msg.size` is 0, the library simply returns binary address (`&enif_alloc_binary`).
 
-We have a stack overflow, no canary, binary base address. So gaining shell through ROP is trivial.
+We have a stack overflow, no canary, and a binary base address, so gaining a shell through ROP is trivial.
 
-We used `execv` function to execute system command, and got flag via curl command.
+We used the `execv` function to execute the system command, and got a flag via the curl command.
 
-the full exploit script is in `gleamering-hope-solver.py`.
+The full exploit script is in `gleamering-hope-solver.py`.
