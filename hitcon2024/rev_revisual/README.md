@@ -27,6 +27,20 @@ The deobfuscated (via https://deobfuscate.io/), renamed, and reversed script is 
 
 ## Solving
 
+We encoded the problem to SAT as follows:
+
+A grid of 25x25 boolean variables, where `grid[x][y]` is True iff y is the x-th star in the sequence. Accordingly,
+we add cardinality constraints to ensure that exactly one star is at each position in the sequence, and that each star
+can only be at one position.
+
+To generate the remaining constraints, we rely on a brute-force. First, we compute all 3-tuple values from the wtf function (25<sup>3</sup> = 15625). Then, in they we would
+need to check all 15625<sup>3</sup>=~big possible inputs to gtfo. Instead, we check all pairs of 3-tuples (15625^2) and compute the value *needed* for the third 3-tuple in order to satisfy the constraint math.abs(<num> - gtfo(...)) < 10e-10 (we found we could be more restrictive than the program's 10e-5 check). To do this, we take the formula for interpolating a point on a triangle: `result = (w1 * x) + (w2 * y) + w0 * (1.0 - x - y)` and solve for w0: `w0 = target - ((w1 * x) + (w2 * y)) / (1.0 - x - y)`. If w0 is in the set of possible results from wtf, then that gives us the value for the final 3-tuple.
+
+The brute force yields a set of 9-tuples (or, groups of 3 3-tuples) that would cause wtf() to produce the correct result. There are several 9-tuples for each; some of them are inconsistent with the problem constraints, however: for example, the first problem `(0.3837876686390533, [[11, 1, 21], [14, 1, 9], [17, 9, 21]], [16, 21])` constrains
+the second value of the first tuple and the second value of the second tuple to be equal (both are star # of the second star in the sequence). After removing these, we are left with a smaller set. We [encode](https://github.com/mmm-team/public-writeups/blob/ec05ac589332cb38f185af92378366a8346cf3ba/hitcon2024/rev_revisual/solve.py#L310) all of the possiblities to SAT for each wtf call.
+
+In the process of solving this, we initially noticed that our emulated wtf call in python was producing slightly different results. The reason was that we were taking the value at the exact coordinates of the point, [rather](https://github.com/mmm-team/public-writeups/blob/ec05ac589332cb38f185af92378366a8346cf3ba/hitcon2024/rev_revisual/solve.py#L15) than the *center* of the nearest pixel.
+
 Solve script is [here](./solve.py).
 
 ## Credits
