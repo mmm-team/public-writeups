@@ -50,6 +50,11 @@ This also returns an error. This time it has a blank message
 
 This is enough to leak knowledge.
 
+Note that the true problem lies not with having a maximum digits error, but rather the negative `e`. The reason is that
+the max digits could be considered as a security measure against Denial of Service attacks in converting integers to and
+from decimal. 
+
+
 ## The Idea behind the Exploit
 
 For the sake of convenience, let `u = n - phi`. if we expand the definition of `u` we get `u = p + q - 1` which is
@@ -70,7 +75,7 @@ Great! we now have a binary search that narrows down a value of `u`. Since we on
 with the server, we can't recover all the bits of `u`. Instead, we are left with a lower and upper bound for the value
 of `u` (call it `lo` and `hi`).
 
-However, with some Lattice and Coppersmith small roots magic we are able recover `p`. 
+However, with some Lattice and Coppersmith small roots magic we are able recover `p` (or `q` without loss of generality). 
 
 Recall that our `y` is not exactly equal to `eu`. There is some deviation from this in the lower bits of `u` since we
 add `r`. However, with some clever square roots, we eliminate this error out of our approximation of `y` and hence `u`. 
@@ -79,13 +84,16 @@ square root of `u`. We use this logic to craft a highly accurate approximation o
 
 `p ==  u//2 + isqrt(u^2//4 - n)`
 
+This has the additional benefit of finding a quadratic expression, allowing us to find a better approximation. 
+
 Using the lower bound of `u`, we can create a lower bound for `p` and call it `pleft`. Similarly, we use the upper bound
 to create an upper bound for `p` called `pright`. 
 
 From our lower bound of `p`, we can create a polynomial `p = pleft + x`. where `x` is an unknown. We can determine that
 since the maximum value of `p` is `pright`, we deduce that `x` has to be less than `pright - pleft`. So, we end up with
-a polynomial `pleft + x` and a bound `X = pright - pleft`. We can use to Coppersmith's small roots to recover `p`. We
-can then trivially calculate `phi` and use that to complete the rest of challenge from the server.
+a polynomial `pleft + x` and a bound `X = pright - pleft`. From the classic RSA Lattice-attack playbook, we can use to 
+Coppersmith's method to find small roots modulo `n` to recover `p`. We can then trivially calculate `phi` and use that 
+to complete the rest of challenge from the server.
 
 
 ## Exploit Script
