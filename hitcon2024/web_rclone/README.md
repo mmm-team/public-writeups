@@ -107,12 +107,12 @@ module.exports = visit
 if (require.main === module) {
         visit('http://example.com')
 }
-``` 
+```
 </details>
 
 <details>
         <summary><code>docker-compose.yaml</code></summary>
-        
+
 ```yaml
 services:
   rclone:
@@ -179,7 +179,7 @@ To read out the flag, we also run `rclone rcd http /tmp --rc-addr 0.0.0.0:8079`,
 
 <details>
         <summary><code>index.js</code></summary>
-        
+
 ```javascript
 const leDomain = "rclone"
 const rcAPIEndpoint = `http://${leDomain}:5572`;
