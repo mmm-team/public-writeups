@@ -46,15 +46,12 @@ if __name__ == "__main__":
 
         extractDir = Path(tmpdir) / "extract"
         extractDir.mkdir()
-        proc = subprocess.run(
+        subprocess.run(
             ["tar", "-xf", uploadTar, "-C", extractDir],
-            check=False,
+            check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-
-        print(proc.stdout)
-        print(proc.stderr)
 
         print("Extracted files:")
         for f in extractDir.iterdir():
@@ -97,7 +94,7 @@ exactly what we want. According to the bug description,
 On the other hand, it is cited that "GNU tar 1.34 correctly identifies error and continues processing".
 
 Attempting this exploit, we found that while `tar` will continue processing, it also returns a *nonzero* exit code. This is problematic because `subprocess.run`'s `check`
-argument is set to `False`, which means an error will cause the program to exit. The Dockerfile actually uses `busybox tar`, but this behavior is still consistent with
+argument is set to `True`, which means an error will cause the program to exit. The Dockerfile actually uses `busybox tar`, but this behavior is still consistent with
 `GNU tar`.
 
 Digging into the CPython source code, we can see that an `InvalidHeaderError` is raised upon an invalid checksum:
