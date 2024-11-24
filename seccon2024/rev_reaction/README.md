@@ -5,7 +5,7 @@ We're given a C++ binary with symbols. (yay!)
 After reversing `main` and `Environment::set()`, we notice that `main` sets up a 14x14 `vector<vector<int>>` board and `Environment::set()` generates 2 random bytes (1~4) and places them in the board based on the input we give it as follows:
 ```
 server sends random 2 bytes
-we receive 2 bytes: index, orientation
+server receives 2 bytes: index, orientation
 
 if orientation == 0:
     if pos >= 14: fail
