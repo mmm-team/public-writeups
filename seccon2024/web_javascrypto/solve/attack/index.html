@@ -1,0 +1,9 @@
+<script>
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    (async () => {
+        await sleep(4000); // gets around the weird 3000ms timeout
+        window.location = "/index2.html";
+    })();
+</script>
