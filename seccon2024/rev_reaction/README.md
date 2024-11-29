@@ -83,4 +83,4 @@ Based on the description of the program up to this point, one of our team member
 
 We wrote [an interactive solver](./solve.py) that lets the user interactively play the game, optionally starting by playing a log from a previous attempt.  This is based on a theoretical "correct" Puyo implementation, rather than a full reverse-engineering of the game's logic.  It turns out that this is actually different in some cases, and our first attempt at a 16-chain failed because the game handles simultaneous clears differently from an actual Puyo game.  We played a little more carefully on a second attempt and were able to finish the game and get the flag with a simple staircase 14-chain:
 
-![Our solution](./solve.mov)
+<video controls src="./solve.mov" />
