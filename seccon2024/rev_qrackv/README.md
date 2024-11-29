@@ -46,7 +46,7 @@ In particular, the custom instructions are:
 
 We're going to have to reverse the given `qemu-riscv64` and see how the custom instructions were implemented.
 
-Lets go to the largest function at `0xd59b0`, since that's probably where the bulk of the instruction decoding stuff is. There's a huge switch case with lots of extracting certain bits from an int, which looks promising.
+Let's go to the largest function at `0xd59b0`, since that's probably where the bulk of the instruction decoding stuff is. There's a huge switch case with lots of extracting certain bits from an int, which looks promising.
 
 Looking for the cases which handle the custom instructions, we get:
 ```
@@ -76,7 +76,7 @@ With extensive cross-referencing of the TCG source code and docs:
 - https://github.com/qemu/qemu/blob/master/include/tcg/tcg-opc.h (contains all the TCG opcodes in order, for converting between ints and opcodes)
 - https://github.com/qemu/qemu/blob/master/include/tcg/tcg-cond.h (condition codes)
 
-we get that the first 3 custom instructions emit TCG, while the last one passes `a4` and `a5` to `0x58B40` via `tcg_gen_call3`.
+we get that the first 3 custom instructions emit TCG, while the last one passes `a4` and `a5` to `0x58B40` via `tcg_gen_call3`, returning in `a5`.
 
 This function just checks that `a5` matches some hardcoded values at `0x1EDB00`.
 ```
