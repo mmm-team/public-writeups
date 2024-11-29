@@ -1,4 +1,6 @@
-## Reaction
+# Reaction&emsp;<sub><sup>Rev, 233 points</sup></sub>
+
+_Writeup by @ubuntor and [@bluepichu](https://github.com/bluepichu)_
 
 We're given a C++ binary with symbols. (yay!)
 
@@ -76,3 +78,9 @@ while True:
 ```
 
 It looks like we're placing random dominos on the top row of the board, which then fall and do stuff.
+
+Based on the description of the program up to this point, one of our team members recognized it as probably being an implementation of Puyo Puyo, albeit with a 14x14 board instead of the standard 6x14 board.  At this point we had a pretty good idea that the goal was to get at least a 14-chain, and then send an invalid input to end the game.
+
+We wrote [an interactive solver](./solve.py) that lets the user interactively play the game, optionally starting by playing a log from a previous attempt.  This is based on a theoretical "correct" Puyo implementation, rather than a full reverse-engineering of the game's logic.  It turns out that this is actually different in some cases, and our first attempt at a 16-chain failed because the game handles simultaneous clears differently from an actual Puyo game.  We played a little more carefully on a second attempt and were able to finish the game and get the flag with a simple staircase 14-chain:
+
+![Our solution](./solve.mov)
