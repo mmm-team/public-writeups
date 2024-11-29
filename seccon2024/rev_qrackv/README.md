@@ -75,6 +75,7 @@ With extensive cross-referencing of the TCG source code and docs:
 - https://www.qemu.org/docs/master/devel/tcg-ops.html
 - https://github.com/qemu/qemu/blob/master/include/tcg/tcg-opc.h (contains all the TCG opcodes in order, for converting between ints and opcodes)
 - https://github.com/qemu/qemu/blob/master/include/tcg/tcg-cond.h (condition codes)
+
 we get that the first 3 custom instructions emit TCG, while the last one passes `a4` and `a5` to `0x58B40` via `tcg_gen_call3`.
 
 This function just checks that `a5` matches some hardcoded values at `0x1EDB00`.
